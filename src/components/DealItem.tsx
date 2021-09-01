@@ -1,6 +1,6 @@
 import React from 'react';
-import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
-import {priceDisplay} from '../util';
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { priceDisplay } from '../util';
 
 type Props = {
   deal: IDeal;
@@ -14,14 +14,14 @@ interface IDeal {
   key: string;
 }
 
-const DealItem = ({deal, onPress}: Props) => {
+const DealItem = ({ deal, onPress }: Props) => {
   const handlePress = () => {
     onPress(deal.key);
   };
 
   return (
     <TouchableOpacity style={styles.container} onPress={handlePress}>
-      <Image source={{uri: deal.media[0]}} style={styles.image} />
+      <Image source={{ uri: deal.media[0] }} style={styles.image} />
       <View>
         <Text>{deal.title}</Text>
         <Text>{priceDisplay(deal.price)}</Text>

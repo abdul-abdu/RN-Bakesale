@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet, FlatList} from 'react-native';
+import { View, StyleSheet, FlatList } from 'react-native';
 import DealItem from './DealItem';
 
 type Props = {
@@ -7,12 +7,12 @@ type Props = {
   onItemPress: Function;
 };
 
-const DealList = ({deals, onItemPress}: Props) => {
+const DealList = ({ deals, onItemPress }: Props) => {
   return (
     <View style={styles.list}>
       <FlatList
         data={deals}
-        renderItem={({item}) => (
+        renderItem={({ item }) => (
           <DealItem key={item.key} deal={item} onPress={onItemPress} />
         )}
       />

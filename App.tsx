@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import {fetchInitialDeals} from './src/ajax';
+import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import { fetchInitialDeals } from './src/ajax';
 import DealList from './src/components/DealList';
 import DealDetail from './src/components/DealDetail';
-import {IDeal} from './types';
+import { IDeal } from './types';
 import SearchBar from './src/components/SearchBar';
 
 const App = (): JSX.Element => {

@@ -1,22 +1,23 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
-import {priceDisplay} from '../util';
-import {IDeal, IDealFull} from '../../types';
-import {fetchDealDetail} from '../ajax';
+import React, { useEffect, useState } from 'react';
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { priceDisplay } from '../util';
+import { IDeal, IDealFull } from '../../types';
+import { fetchDealDetail } from '../ajax';
 
 type Props = {
   initialDealData: IDeal;
   onBack: Function;
 };
 
-const DealDetail = ({initialDealData, onBack}: Props) => {
+const DealDetail = ({ initialDealData, onBack }: Props) => {
   const [deal, setDeal] = useState<IDeal | IDealFull>(initialDealData);
+  const [imageIndex, setImageIndex] = useState<Number>(0);
 
   useEffect(() => {
     (async () => {
       const fullDealData = await fetchDealDetail(deal.key);
       setDeal(fullDealData);
-      console.log({fullDealData});
+      console.log({ fullDealData });
     })();
   }, []);
 
@@ -26,7 +27,7 @@ const DealDetail = ({initialDealData, onBack}: Props) => {
         <Text style={styles.backLink}>Back</Text>
       </TouchableOpacity>
 
-      <Image source={{uri: initialDealData.media[0]}} style={styles.image} />
+      <Image source={{ uri: imageIndex }} style={styles.image} />
       <View>
         <Text>{initialDealData.title}</Text>
         <Text>{priceDisplay(initialDealData.price)}</Text>
@@ -35,7 +36,7 @@ const DealDetail = ({initialDealData, onBack}: Props) => {
       {deal.user && (
         <>
           <View>
-            <Image source={{uri: deal.user.avatar}} style={styles.avatar} />
+            <Image source={{ uri: deal.user.avatar }} style={styles.avatar} />
             <Text>{deal.user.name}</Text>
           </View>
 
