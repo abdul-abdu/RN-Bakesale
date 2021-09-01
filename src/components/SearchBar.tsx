@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, TextInput, StyleSheet} from 'react-native';
 
-const SearchBar = () => {
+const SearchBar = (): JSX.Element => {
   return (
     <View>
       <TextInput style={styles.input} placeholder="searchbar" />
