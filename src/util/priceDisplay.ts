@@ -1,3 +1,3 @@
 export const priceDisplay = (priceInCents: number): string => {
-  return `$${priceInCents / 100}`;
-};
+  return `$${priceInCents / 100}`
+}

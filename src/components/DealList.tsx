@@ -1,11 +1,11 @@
-import React from 'react';
-import { View, StyleSheet, FlatList } from 'react-native';
-import DealItem from './DealItem';
+import React from 'react'
+import { View, StyleSheet, FlatList } from 'react-native'
+import DealItem from './DealItem'
 
 type Props = {
-  deals: any[];
-  onItemPress: Function;
-};
+  deals: any[]
+  onItemPress: Function
+}
 
 const DealList = ({ deals, onItemPress }: Props) => {
   return (
@@ -17,10 +17,10 @@ const DealList = ({ deals, onItemPress }: Props) => {
         )}
       />
     </View>
-  );
-};
+  )
+}
 
-export default DealList;
+export default DealList
 
 const styles = StyleSheet.create({
   list: {
@@ -29,4 +29,4 @@ const styles = StyleSheet.create({
     paddingTop: 50,
     width: '100%',
   },
-});
+})

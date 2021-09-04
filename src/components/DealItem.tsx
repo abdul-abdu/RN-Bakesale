@@ -1,23 +1,23 @@
-import React from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
-import { priceDisplay } from '../util';
+import React from 'react'
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
+import { priceDisplay } from '../util'
 
 type Props = {
-  deal: IDeal;
-  onPress: Function;
-};
+  deal: IDeal
+  onPress: Function
+}
 
 interface IDeal {
-  media: string[];
-  title: string;
-  price: number;
-  key: string;
+  media: string[]
+  title: string
+  price: number
+  key: string
 }
 
 const DealItem = ({ deal, onPress }: Props) => {
   const handlePress = () => {
-    onPress(deal.key);
-  };
+    onPress(deal.key)
+  }
 
   return (
     <TouchableOpacity style={styles.container} onPress={handlePress}>
@@ -27,8 +27,8 @@ const DealItem = ({ deal, onPress }: Props) => {
         <Text>{priceDisplay(deal.price)}</Text>
       </View>
     </TouchableOpacity>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   image: {
@@ -39,6 +39,6 @@ const styles = StyleSheet.create({
     margin: 10,
     backgroundColor: '#fff',
   },
-});
+})
 
-export default DealItem;
+export default DealItem
