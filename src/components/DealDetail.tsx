@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import {
   View,
   Text,
@@ -18,28 +18,30 @@ type Props = {
   initialDealData: IDeal
   onBack: Function
 }
+const width = Dimensions.get('window').width
 
 function DealDetail({ initialDealData, onBack }: Props) {
-  const imageXPos = new Animated.Value(0)
-  const width = Dimensions.get('window').width
+  const imageXPos = useRef(new Animated.Value(0)).current
   const [deal, setDeal] = useState<IDeal | IDealFull>(initialDealData)
   const [imageIndex, setImageIndex] = useState(0)
-  const imagePanResponder = PanResponder.create({
-    onStartShouldSetPanResponder: () => true,
-    onPanResponderMove: (event, gestureState) => {
-      imageXPos.setValue(gestureState.dx)
-    },
-    onPanResponderRelease: (event, gestureState) => {
-      if (gestureState.dx < -0.4 * width) {
-        Animated.timing(imageXPos, {
-          toValue: -1 * width,
-          duration: 250,
-          useNativeDriver: false,
-        }).start()
-      }
-    },
-  })
-
+  const imagePanResponder = useRef(
+    PanResponder.create({
+      onMoveShouldSetPanResponder: () => true,
+      onPanResponderGrant: () => {},
+      onPanResponderMove: (e, gs) => {
+        imageXPos.setValue(gs.dx)
+      },
+      onPanResponderRelease: (e, gs) => {
+        if (Math.abs(gs.dx) > width * 0.4) {
+          const direction = Math.sign(gs.dx)
+          Animated.timing(imageXPos, {
+            toValue: direction * width,
+            duration: 250,
+          }).start()
+        }
+      },
+    }),
+  ).current
   useEffect(() => {
     ;(async function loadDealDetails() {
       const fullDealData = await fetchDealDetail(deal.key)
@@ -47,10 +49,6 @@ function DealDetail({ initialDealData, onBack }: Props) {
     })()
   }, [])
 
-  const handleSwipe = () => {
-    setImageIndex(imageIndex + 1)
-    imageXPos.setValue(width)
-  }
   return (
     <SafeArea>
       <View style={styles.container}>
@@ -61,7 +59,7 @@ function DealDetail({ initialDealData, onBack }: Props) {
         <Animated.Image
           {...imagePanResponder.panHandlers}
           source={{ uri: deal.media[imageIndex] }}
-          style={[styles.image, { left: imageXPos }]}
+          style={[{ left: imageXPos }, styles.image]}
         />
         <View>
           <Text>{initialDealData.title}</Text>
